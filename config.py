@@ -1,7 +1,7 @@
 from winreg import *
 
 BASELINE_FILE = "data/baseline.json"
-LOG_FILE = "data/changes.log"
+LOG_FILE = "data/registry_log.txt"
 INTERVAL = 60
 
 
@@ -16,20 +16,30 @@ HIVE_NAMES = {
 
 WATCH_KEYS = [
     #run keys
-    (HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows\CurrentVersion\Run"),
-    (HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows\CurrentVersion\RunOnce"),
-    (HKEY_CURRENT_USER,  "Software\Microsoft\Windows\CurrentVersion\Run"),
-    (HKEY_CURRENT_USER,  "Software\Microsoft\Windows\CurrentVersion\RunOnce")
+    (HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows\CurrentVersion\Run"),
+    (HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows\CurrentVersion\RunOnce"),
+    (HKEY_CURRENT_USER,  r"Software\Microsoft\Windows\CurrentVersion\Run"),
+    (HKEY_CURRENT_USER,  r"Software\Microsoft\Windows\CurrentVersion\RunOnce")
 
-    #scheduled tasks
-    (HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks"),
-    (HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree"),
-    (HKEY_CURRENT_USER,  "Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks"),
-    (HKEY_CURRENT_USER,  "Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree"),
+
+    #policy based run keys
+    (HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run"),
+    (HKEY_CURRENT_USER,  r"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run"),
+    
+    #services
+    (HKEY_LOCAL_MACHINE, r"System\CurrentControlSet\Services"),
+    
+    
+    (HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree"),
+    (HKEY_CURRENT_USER,  r"Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree"),
     
     #controls what runs at login
-    (HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon"),
+    (HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows NT\CurrentVersion\Winlogon"),
     
     #Allows dlls to automatically load into  every user process that loads user32.dll for 32 bit systems
-    (HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs")
+    (HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs")
+    
+    (HKEY_LOCAL_MACHINE, r"System\CurrentControlSet\Control\Session Manager")
+
 ]
+
