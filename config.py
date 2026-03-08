@@ -39,7 +39,37 @@ WATCH_KEYS = [
     #Allows dlls to automatically load into  every user process that loads user32.dll for 32 bit systems
     (HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs")
     
+    #boot
     (HKEY_LOCAL_MACHINE, r"System\CurrentControlSet\Control\Session Manager")
 
 ]
 
+#strings that ideally shouldn't be spotted inside a registry value; could flag potential HIGH severity
+SUSPICIOUS_STRINGS = [
+    "powershell -enc",
+    "powershell -w hidden",
+    "cmd /c",
+    "regsvr32",
+    "rundll32",
+    "wscript",
+    "cscript",
+    ".vbs",
+    ".hta",
+    "mshta",
+    "\\temp\\",
+    "\\appdata\\roaming",
+    "\\appdata\\local\\temp"
+]
+
+EXECUTABLE_EXTENSIONS = [".bat", ".exe", ".cmd", ".ps1", ".vbs", ".hta", ".js"]
+
+
+#binary file signature, magic bytes at the start of the file which indicates file type
+FILE_SIGNATURES = {
+    "MZ/PE (Windows executable)" : b"\x4D\x5A",         # .exe and .dll
+    "UPX packed"                  : b"\x55\x50\x58\x21", # UPX packer, often used to hide malware
+    "ELF (Linux binary on Windows)": b"\x7F\x45\x4C\x46",
+}
+
+#program would freeze on large files
+MAX_FILE_READ = 512 #bytes

@@ -1,6 +1,6 @@
 # Windows Registry Change Monitor
 
-This tool helps monitor critical registry keys for unauhtorized modifications by focusing on common persistence locations used by mawale like run keys, services, and scheduled tasks.
+This tool helps monitor critical registry keys for unauhtorized modifications by focusing on common persistence locations used by mawale like run keys, services, and scheduled tasks. It takes a snapshot for baseline and compares it. It not only knows what bad pattern is but can also detect if something has changed.
 
 
 ### Key Concepts
